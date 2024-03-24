@@ -34,7 +34,7 @@ Start the App
 ## Screenshots
 
 ![Screenshot_1711278684](https://github.com/Antrimo/Internship-Task/assets/114746821/69fd37a1-2751-4b3d-9572-a72ea59f160a)
-![Screenshot_1711278931](https://github.com/Antrimo/Internship-Task/assets/114746821/6e28967b-5063-413f-b647-154e6e993912)
+![Screenshot_1711278916](https://github.com/Antrimo/Internship-Task/assets/114746821/65bba737-16e5-4de3-b823-af7f7750509e)
 ![Screenshot_1711278931](https://github.com/Antrimo/Internship-Task/assets/114746821/eab40508-2a47-4441-ad03-8ad93f3a957f)
 ![Screenshot_1711278936](https://github.com/Antrimo/Internship-Task/assets/114746821/7b4e9d98-d661-4b0a-a26d-b856c9f46d4b)
 
