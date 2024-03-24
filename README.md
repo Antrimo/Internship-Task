@@ -1,16 +1,34 @@
-# task
 
-A new Flutter project.
+# Intern Task
 
-## Getting Started
+A simple app with a number and 2 buttons. One button increments the number, the other decrements it. The first time opening the app, there should be an overlay with a guide explaining how the app works and prompting the user to click each of the buttons while highlighting the change it makes. All subsequent times using the app, it should not give the guide
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Run Locally
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Clone the project
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+  git clone https://github.com/Antrimo/Internship-Task.git
+```
+
+Go to the project directory
+
+```bash
+  cd Internship-Task
+```
+
+Install dependencies
+
+```bash
+  flutter pub get
+```
+
+Start the App
+
+```bash
+  flutter run
+```
+
+
+## Screenshots
