@@ -13,7 +13,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: const Color.fromARGB(255, 70, 158, 230),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: splash,
