@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/color/theme.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -13,8 +14,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey _increasebutton = GlobalKey();
   final GlobalKey _decreasebuttom = GlobalKey();
-  final GlobalKey _home = GlobalKey();
-  final GlobalKey _profile = GlobalKey();
 
   int _counter = 0;
 
@@ -119,81 +118,57 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> _createTutorial() async {
-    final targets = [
-      TargetFocus(
-        identify: 'editButton',
-        keyTarget: _increasebutton,
-        alignSkip: Alignment.bottomCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              'Press this button to increment the counter value',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool tutorialShown = prefs.getBool('tutorialShown') ?? false;
+
+    if (!tutorialShown) {
+      final targets = [
+        TargetFocus(
+          identify: 'editButton',
+          keyTarget: _increasebutton,
+          alignSkip: Alignment.bottomCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.bottom,
+              child: Text(
+                'Press this button to increment the counter value',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: 'settingsButton',
-        keyTarget: _decreasebuttom,
-        alignSkip: Alignment.bottomCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              'Press this button to decrement the counter value',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+          ],
+        ),
+        TargetFocus(
+          identify: 'settingsButton',
+          keyTarget: _decreasebuttom,
+          alignSkip: Alignment.bottomCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.bottom,
+              child: Text(
+                'Press this button to decrement the counter value',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: 'home',
-        keyTarget: _home,
-        alignSkip: Alignment.bottomCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              'Click here to go to the home page',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: 'profile',
-        keyTarget: _profile,
-        alignSkip: Alignment.bottomCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.bottom,
-            child: Text(
-              'Click here to go to the profile page',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    ];
-    final tutorial = TutorialCoachMark(
-      targets: targets,
-    );
-    Future.delayed(const Duration(milliseconds: 500), () {
-      tutorial.show(context: context);
-    });
+          ],
+        ),
+      ];
+
+      final tutorial = TutorialCoachMark(
+        targets: targets,
+        onFinish: () {
+          prefs.setBool('tutorialShown', true);
+        },
+      );
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        tutorial.show(context: context);
+      });
+    }
   }
 }
