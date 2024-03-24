@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:task/color/theme.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -11,12 +13,40 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[400],
       appBar: AppBar(
-        title: const Text('Profile'),
+        automaticallyImplyLeading: false,
+        backgroundColor: splash,
+        title: const Center(
+          child: Text('Profile',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontStyle: FontStyle.italic,
+              )),
+        ),
       ),
-      body: const Center(
-        child: Text('Profile'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Lottie.asset(
+              "assets/profile.json",
+              width: 200,
+              height: 200,
+            ),
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Logout'),
+          )
+        ],
       ),
     );
   }

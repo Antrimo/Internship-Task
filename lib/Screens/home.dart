@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:task/color/theme.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  final GlobalKey _increasebutton = GlobalKey();
+  final GlobalKey _decreasebuttom = GlobalKey();
+  final GlobalKey _home = GlobalKey();
+  final GlobalKey _profile = GlobalKey();
+
   int _counter = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _createTutorial();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -28,44 +41,74 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[600],
+      backgroundColor: Colors.blue,
       appBar: AppBar(
         backgroundColor: splash,
         automaticallyImplyLeading: false,
         title: const Center(
-          child: Text('Guide',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
-              )),
+          child: Text(
+            'Home',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '$_counter',
-              style: const TextStyle(
-                fontSize: 48.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            Stack(
+              children: [
+                Center(
+                  child: Lottie.asset(
+                    "assets/frame.json",
+                    width: 200,
+                    height: 200,
+                  ),
+                ),
+                Positioned(
+                  top: 60,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      '$_counter',
+                      style: const TextStyle(
+                        fontSize: 48.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: _incrementCounter,
-                  child: const Icon(Icons.add),
+                GestureDetector(
+                  key: _increasebutton,
+                  onTap: _incrementCounter,
+                  child: Lottie.asset(
+                    "assets/plus.json",
+                    width: 100,
+                    height: 100,
+                  ),
                 ),
                 const SizedBox(width: 20.0),
-                ElevatedButton(
-                  onPressed: _decrementCounter,
-                  child: const Icon(Icons.remove),
+                GestureDetector(
+                  key: _decreasebuttom,
+                  onTap: _decrementCounter,
+                  child: Lottie.asset(
+                    "assets/minus.json",
+                    width: 90,
+                    height: 90,
+                  ),
                 ),
               ],
             ),
@@ -73,5 +116,84 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Future<void> _createTutorial() async {
+    final targets = [
+      TargetFocus(
+        identify: 'editButton',
+        keyTarget: _increasebutton,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              'Press this button to increment the counter value',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: 'settingsButton',
+        keyTarget: _decreasebuttom,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              'Press this button to decrement the counter value',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: 'home',
+        keyTarget: _home,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              'Click here to go to the home page',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: 'profile',
+        keyTarget: _profile,
+        alignSkip: Alignment.bottomCenter,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: Text(
+              'Click here to go to the profile page',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    ];
+    final tutorial = TutorialCoachMark(
+      targets: targets,
+    );
+    Future.delayed(const Duration(milliseconds: 500), () {
+      tutorial.show(context: context);
+    });
   }
 }

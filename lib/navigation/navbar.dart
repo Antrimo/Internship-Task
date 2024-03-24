@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:task/Screens/home.dart';
@@ -43,6 +44,7 @@ class _NavState extends State<Nav> {
                   iconSize: 30.0,
                 ),
                 GButton(
+                  key: Key('profile'),
                   icon: Icons.people,
                   iconSize: 30.0,
                 ),
